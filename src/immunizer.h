@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <windows.h>
 
 namespace update_lock::immunizer {
 

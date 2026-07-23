@@ -1,6 +1,8 @@
 #include "immunizer.h"
 #include "security_manager.h"
 #include "process_manager.h"
+#include <windows.h>
+#include <cstdlib>
 #include <filesystem>
 #include <iostream>
 
@@ -9,11 +11,12 @@ namespace fs = std::filesystem;
 namespace update_lock::immunizer {
 
 std::wstring GetEnvVar(const std::wstring& var_name) {
-  wchar_t* buf = nullptr;
-  size_t sz = 0;
-  if (_wdupenv_s(&buf, &sz, var_name.c_str()) == 0 && buf != nullptr) {
-    std::wstring res(buf);
-    free(buf);
+  DWORD size = ::GetEnvironmentVariableW(var_name.c_str(), nullptr, 0);
+  if (size == 0) return L"";
+  std::wstring res(size, L'\0');
+  DWORD copied = ::GetEnvironmentVariableW(var_name.c_str(), res.data(), size);
+  if (copied > 0 && copied < size) {
+    res.resize(copied);
     return res;
   }
   return L"";

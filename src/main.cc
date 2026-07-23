@@ -56,9 +56,9 @@ int main() {
   int choice = -1;
   while (true) {
     ShowMenu();
-    if (!(std::cin >> choice)) {
-      std::cin.clear();
-      std::cin.ignore(1000, '\n');
+    if (!(std::wcin >> choice)) {
+      std::wcin.clear();
+      std::wcin.ignore(1000, L'\n');
       continue;
     }
 
