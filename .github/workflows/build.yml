@@ -1,0 +1,52 @@
+name: Build & Release UpdateLock
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-msvc:
+    name: Build with MSVC (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup MSVC Environment
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure CMake
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build Executable
+        run: cmake --build build --config Release
+
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: UpdateLock-MSVC-x64
+          path: build/Release/UpdateLock.exe
+
+  build-mingw:
+    name: Build with MinGW (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup MinGW
+        uses: egor-trefilov/setup-mingw@v2
+
+      - name: Build with MinGW g++
+        run: |
+          mkdir build
+          g++ -std=c++17 -O2 src/main.cc src/security_manager.cc src/process_manager.cc src/immunizer.cc -ladvapi32 -lshell32 -luser32 -o build/UpdateLock.exe
+
+      - name: Upload Binary Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: UpdateLock-MinGW-x64
+          path: build/UpdateLock.exe
