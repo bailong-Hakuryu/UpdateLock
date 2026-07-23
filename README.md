@@ -1,4 +1,4 @@
-# UpdateLock - 通用软件防自动更新/底层锁死免疫工具
+# UpdateLock - 微信与通用软件防自动更新/底层锁死免疫工具
 
 [![Language](https://img.shields.io/badge/Language-C%2B%2B17%20%2F%20PowerShell-blue.svg)](file:///d:/微信过低版本)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%2FServer-0078D6.svg)](file:///d:/微信过低版本)
