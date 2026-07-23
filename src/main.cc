@@ -5,6 +5,10 @@
 #include "process_manager.h"
 #include "immunizer.h"
 
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif
+
 namespace {
 
 void SetupConsole() {

@@ -11,9 +11,14 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-file(GLOB SOURCES
-    "src/*.h"
-    "src/*.cc"
+set(SOURCES
+    src/immunizer.h
+    src/immunizer.cc
+    src/main.cc
+    src/process_manager.h
+    src/process_manager.cc
+    src/security_manager.h
+    src/security_manager.cc
 )
 
 add_executable(UpdateLock ${SOURCES})

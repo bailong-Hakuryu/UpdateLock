@@ -14,8 +14,8 @@ std::wstring GetEnvVar(const std::wstring& var_name) {
   DWORD size = ::GetEnvironmentVariableW(var_name.c_str(), nullptr, 0);
   if (size == 0) return L"";
   std::wstring res(size, L'\0');
-  DWORD copied = ::GetEnvironmentVariableW(var_name.c_str(), res.data(), size);
-  if (copied > 0 && copied < size) {
+  DWORD copied = ::GetEnvironmentVariableW(var_name.c_str(), &res[0], size);
+  if (copied > 0 && copied < res.size()) {
     res.resize(copied);
     return res;
   }
