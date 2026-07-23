@@ -161,6 +161,6 @@ while ($true) {
             $p = Read-Host "请输入绝对路径"
             if ($p) { Unset-PathLock -targetPath $p | Out-Null; Write-Host '[✓] 已恢复权限！' -ForegroundColor Green }
         }
-        '0' { Write-Host "已退出。"; break }
+        '0' { Write-Host "已退出。"; return }
     }
 }
