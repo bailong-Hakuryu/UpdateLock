@@ -71,7 +71,7 @@ bool SetFolderAccessDeny(const std::wstring& path) {
     return false;
   }
 
-  ScopedLocalAlloc<SECURITY_DESCRIPTOR> sd_holder(reinterpret_cast<PSECURITY_DESCRIPTOR>(raw_sd));
+  ScopedLocalAlloc<SECURITY_DESCRIPTOR> sd_holder(static_cast<SECURITY_DESCRIPTOR*>(raw_sd));
 
   EXPLICIT_ACCESS_W ea{};
   ea.grfAccessPermissions = GENERIC_WRITE | FILE_ADD_FILE | FILE_ADD_SUBDIRECTORY | DELETE;
@@ -119,7 +119,7 @@ bool RemoveFolderAccessDeny(const std::wstring& path) {
     return false;
   }
 
-  ScopedLocalAlloc<SECURITY_DESCRIPTOR> sd_holder(reinterpret_cast<PSECURITY_DESCRIPTOR>(raw_sd));
+  ScopedLocalAlloc<SECURITY_DESCRIPTOR> sd_holder(static_cast<SECURITY_DESCRIPTOR*>(raw_sd));
 
   EXPLICIT_ACCESS_W ea{};
   ea.grfAccessPermissions = GENERIC_ALL;
