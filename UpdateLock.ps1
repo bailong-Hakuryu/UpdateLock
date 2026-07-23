@@ -138,7 +138,7 @@ if (-not (Test-IsAdmin)) {
     Write-Host '[✓] 运行环境: 已获得管理员权限 (Administrator)' -ForegroundColor Green
 }
 
-while ($true) {
+:mainLoop while ($true) {
     Write-Host "`n请选择操作:"
     Write-Host "  [1] 一键锁死 微信 4.x / 3.x 自动更新"
     Write-Host "  [2] 一键解锁 / 恢复 微信自动更新"
@@ -161,6 +161,6 @@ while ($true) {
             $p = Read-Host "请输入绝对路径"
             if ($p) { Unset-PathLock -targetPath $p | Out-Null; Write-Host '[✓] 已恢复权限！' -ForegroundColor Green }
         }
-        '0' { Write-Host "已退出。"; return }
+        '0' { Write-Host "已退出。"; exit 0 }
     }
 }
