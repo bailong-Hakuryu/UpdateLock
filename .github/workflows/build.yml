@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup MSVC Environment
         uses: ilammy/msvc-dev-cmd@v1
@@ -25,7 +25,7 @@ jobs:
         run: cmake --build build --config Release
 
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: UpdateLock-MSVC-x64
           path: build/Release/UpdateLock.exe
@@ -35,18 +35,24 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup MinGW
-        uses: egor-trefilov/setup-mingw@v2
+      - name: Setup MSYS2 / MinGW
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: mingw-w64-x86_64-gcc
+          update: true
 
       - name: Build with MinGW g++
+        shell: msys2 {0}
         run: |
-          mkdir build
+          mkdir -p build
           g++ -std=c++17 -O2 src/main.cc src/security_manager.cc src/process_manager.cc src/immunizer.cc -ladvapi32 -lshell32 -luser32 -o build/UpdateLock.exe
 
       - name: Upload Binary Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: UpdateLock-MinGW-x64
           path: build/UpdateLock.exe
+
