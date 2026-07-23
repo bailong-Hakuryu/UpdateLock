@@ -30,7 +30,7 @@ std::wstring QueryWeChatInstallPath() {
   // 1. Try HKLM 64-bit / WOW64 registry key
   HKEY raw_key = NULL;
   if (::RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Tencent\\WeChat", 0, KEY_READ, &raw_key) == ERROR_SUCCESS) {
-    ScopedHKey key_holder(raw_key);
+    security::ScopedHKey key_holder(raw_key);
     if (::RegQueryValueExW(key_holder.get(), L"InstallPath", NULL, &dw_type, reinterpret_cast<LPBYTE>(buffer), &dw_size) == ERROR_SUCCESS) {
       return std::wstring(buffer);
     }
@@ -40,7 +40,7 @@ std::wstring QueryWeChatInstallPath() {
   raw_key = NULL;
   dw_size = sizeof(buffer);
   if (::RegOpenKeyExW(HKEY_CURRENT_USER, L"Software\\Tencent\\WeChat", 0, KEY_READ, &raw_key) == ERROR_SUCCESS) {
-    ScopedHKey key_holder(raw_key);
+    security::ScopedHKey key_holder(raw_key);
     if (::RegQueryValueExW(key_holder.get(), L"InstallPath", NULL, &dw_type, reinterpret_cast<LPBYTE>(buffer), &dw_size) == ERROR_SUCCESS) {
       return std::wstring(buffer);
     }

@@ -45,6 +45,44 @@ class ScopedHandle {
   HANDLE handle_;
 };
 
+// RAII Wrapper for Win32 HKEY
+class ScopedHKey {
+ public:
+  explicit ScopedHKey(HKEY hKey = NULL) : hKey_(hKey) {}
+  ~ScopedHKey() {
+    if (IsValid()) {
+      ::RegCloseKey(hKey_);
+    }
+  }
+
+  ScopedHKey(const ScopedHKey&) = delete;
+  ScopedHKey& operator=(const ScopedHKey&) = delete;
+
+  ScopedHKey(ScopedHKey&& other) noexcept : hKey_(other.hKey_) {
+    other.hKey_ = NULL;
+  }
+
+  ScopedHKey& operator=(ScopedHKey&& other) noexcept {
+    if (this != &other) {
+      if (IsValid()) {
+        ::RegCloseKey(hKey_);
+      }
+      hKey_ = other.hKey_;
+      other.hKey_ = NULL;
+    }
+    return *this;
+  }
+
+  [[nodiscard]] bool IsValid() const {
+    return hKey_ != NULL;
+  }
+
+  [[nodiscard]] HKEY get() const { return hKey_; }
+
+ private:
+  HKEY hKey_;
+};
+
 // RAII Wrapper for LocalFree allocated Win32 memory (PSECURITY_DESCRIPTOR, PACL)
 template <typename T>
 class ScopedLocalAlloc {
