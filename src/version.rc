@@ -1,5 +1,26 @@
-#include <winres.h>
+#include <winresrc.h>
+#include <windows.h>
 #include "version.h"
+
+#ifndef VS_VERSION_INFO
+#define VS_VERSION_INFO 1
+#endif
+
+#ifndef VS_FFI_FILEFLAGSMASK
+#define VS_FFI_FILEFLAGSMASK 0x0000003FL
+#endif
+
+#ifndef VOS_NT_WINDOWS32
+#define VOS_NT_WINDOWS32 0x00040004L
+#endif
+
+#ifndef VFT_APP
+#define VFT_APP 0x00000001L
+#endif
+
+#ifndef VFT2_UNKNOWN
+#define VFT2_UNKNOWN 0x00000000L
+#endif
 
 // Windows VERSIONINFO resource — provides file properties visible in
 // Explorer → Properties → Details.
@@ -18,7 +39,7 @@ BEGIN
         BLOCK "080404b0"   // Chinese Simplified (PRC) / Unicode
         BEGIN
             VALUE "CompanyName",      "bailong-Hakuryu / UpdateLock Contributors"
-            VALUE "FileDescription",  "UpdateLock - \x8f6f\x4ef6\x9632\x81ea\x52a8\x66f4\x65b0\x514d\x75ab\x5de5\x5177"
+            VALUE "FileDescription",  "UpdateLock - Software Anti-Auto-Update Tool"
             VALUE "FileVersion",      UPDATELOCK_VERSION_STR "\0"
             VALUE "InternalName",     "UpdateLock\0"
             VALUE "LegalCopyright",   "Copyright (C) 2025-2026 bailong-Hakuryu. MIT License.\0"
