@@ -105,13 +105,51 @@ class ScopedLocalAlloc {
   T* ptr_;
 };
 
+// RAII Wrapper for Win32 PSID allocated via FreeSid
+class ScopedSid {
+ public:
+  explicit ScopedSid(PSID sid = nullptr) : sid_(sid) {}
+  ~ScopedSid() {
+    if (sid_) {
+      ::FreeSid(sid_);
+    }
+  }
+
+  ScopedSid(const ScopedSid&) = delete;
+  ScopedSid& operator=(const ScopedSid&) = delete;
+
+  ScopedSid(ScopedSid&& other) noexcept : sid_(other.sid_) {
+    other.sid_ = nullptr;
+  }
+
+  ScopedSid& operator=(ScopedSid&& other) noexcept {
+    if (this != &other) {
+      if (sid_) {
+        ::FreeSid(sid_);
+      }
+      sid_ = other.sid_;
+      other.sid_ = nullptr;
+    }
+    return *this;
+  }
+
+  [[nodiscard]] PSID get() const { return sid_; }
+  explicit operator bool() const { return sid_ != nullptr; }
+
+ private:
+  PSID sid_;
+};
+
 // Checks if current process has Administrator token elevation
 bool IsAdminElevated();
+
+// Formats Win32 GetLastError() code into human-readable string
+std::wstring GetLastErrorMessage(DWORD error_code = ::GetLastError());
 
 // Sanitizes and validates absolute path against path traversal vulnerability
 std::wstring SanitizePath(const std::wstring& raw_path);
 
-// Applies NTFS Deny ACL rule (Write, Delete, Create Files/Folders)
+// Applies NTFS Deny ACL rule (Write, Delete, Create Files/Folders) using Well-Known SID (WinWorldSid / S-1-1-0)
 bool SetFolderAccessDeny(const std::wstring& path);
 
 // Removes NTFS Deny ACL rule and restores permissions

@@ -1,0 +1,33 @@
+#include "version.h"
+
+// Windows VERSIONINFO resource — provides file properties visible in
+// Explorer → Properties → Details.
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION    UPDATELOCK_VERSION_TUPLE
+PRODUCTVERSION UPDATELOCK_VERSION_TUPLE
+FILEFLAGSMASK  VS_FFI_FILEFLAGSMASK
+FILEFLAGS      0x0L
+FILEOS         VOS_NT_WINDOWS32
+FILETYPE       VFT_APP
+FILESUBTYPE    VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"   // Chinese Simplified (PRC) / Unicode
+        BEGIN
+            VALUE "CompanyName",      "bailong-Hakuryu / UpdateLock Contributors"
+            VALUE "FileDescription",  "UpdateLock - \x8f6f\x4ef6\x9632\x81ea\x52a8\x66f4\x65b0\x514d\x75ab\x5de5\x5177"
+            VALUE "FileVersion",      UPDATELOCK_VERSION_STR "\0"
+            VALUE "InternalName",     "UpdateLock\0"
+            VALUE "LegalCopyright",   "Copyright (C) 2025-2026 bailong-Hakuryu. MIT License.\0"
+            VALUE "OriginalFilename", "UpdateLock.exe\0"
+            VALUE "ProductName",      "UpdateLock\0"
+            VALUE "ProductVersion",   UPDATELOCK_VERSION_STR "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0804, 1200   // Chinese Simplified / Unicode
+    END
+END

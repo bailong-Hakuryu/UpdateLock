@@ -1,0 +1,128 @@
+{
+  "version": "1.0",
+  "description": "UpdateLock 软件防自动更新规则库 / Software Anti-Auto-Update Rule Database",
+  "rules": [
+    {
+      "app": "WeChat_4x",
+      "display_name": "微信 4.x (xwechat)",
+      "enabled": true,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%WECHAT_INSTALL%\\WeixinUpdate.exe",
+          "description": "微信 4.x 主更新可执行节点"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\xwechat\\XPlugin\\Plugins\\WeixinUpdate",
+          "description": "xwechat 4.x 核心热更新插件目录"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\xwechat\\XPlugin\\Plugins\\UpdateNotify",
+          "description": "xwechat 4.x 更新通知插件目录"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\xwechat\\update",
+          "description": "xwechat 更新下载缓存目录"
+        }
+      ]
+    },
+    {
+      "app": "WeChat_3x",
+      "display_name": "微信 3.x (旧版)",
+      "enabled": true,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%WECHAT_INSTALL%\\WeChatUpdate.exe",
+          "description": "微信旧版主更新可执行节点"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\WeChat\\XPlugin\\Plugins\\WeChatUpdate",
+          "description": "WeChat 旧版热更新插件目录"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\WeChat\\XPlugin\\Plugins\\UpdateNotify",
+          "description": "WeChat 旧版更新通知目录"
+        },
+        {
+          "type": "directory",
+          "path_template": "%APPDATA%\\Tencent\\WeChat\\All Users\\config\\update",
+          "description": "WeChat 全局更新配置缓存目录"
+        },
+        {
+          "type": "directory",
+          "path_template": "%LOCALAPPDATA%\\Tencent\\WeChatApp\\update",
+          "description": "WeChatApp 本地更新缓存目录"
+        }
+      ]
+    },
+    {
+      "app": "WPS",
+      "display_name": "WPS Office",
+      "enabled": false,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%LOCALAPPDATA%\\Kingsoft\\WPS Office\\ksowebstartupd.exe",
+          "description": "WPS 自动更新启动器"
+        },
+        {
+          "type": "directory",
+          "path_template": "%LOCALAPPDATA%\\Kingsoft\\WPS Office\\update",
+          "description": "WPS 更新缓存目录"
+        }
+      ]
+    },
+    {
+      "app": "BaiduNetDisk",
+      "display_name": "百度网盘",
+      "enabled": false,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%LOCALAPPDATA%\\BaiduNetDisk\\AutoUpdate.exe",
+          "description": "百度网盘自动更新程序"
+        },
+        {
+          "type": "directory",
+          "path_template": "%LOCALAPPDATA%\\BaiduNetDisk\\update",
+          "description": "百度网盘更新缓存目录"
+        }
+      ]
+    },
+    {
+      "app": "DingTalk",
+      "display_name": "钉钉",
+      "enabled": false,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%LOCALAPPDATA%\\DingTalk\\DingTalkUpdater.exe",
+          "description": "钉钉自动更新程序"
+        },
+        {
+          "type": "directory",
+          "path_template": "%LOCALAPPDATA%\\DingTalk\\update",
+          "description": "钉钉更新缓存目录"
+        }
+      ]
+    },
+    {
+      "app": "QQ",
+      "display_name": "QQ",
+      "enabled": false,
+      "targets": [
+        {
+          "type": "exe_node",
+          "path_template": "%LOCALAPPDATA%\\Tencent\\QQ\\QQUpdate.exe",
+          "description": "QQ 自动更新程序"
+        }
+      ]
+    }
+  ]
+}
