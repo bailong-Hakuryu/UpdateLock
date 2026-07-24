@@ -1,3 +1,4 @@
+#include <winres.h>
 #include "version.h"
 
 // Windows VERSIONINFO resource — provides file properties visible in
